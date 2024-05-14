@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="row pt-3">
+    <div class="col-6">
+      <h2>Student Portal</h2>
+    </div>
+    <div class="col-6 text-end">
+      <button class="btn btn-outline-success" (click)="openModel()">Add New</button>
+    </div>
+  </div>
+  @if(studentList.length !== 0){
+  <div class="row mt-4">
+    @for (item of studentList; track $index) {
+    <div class="col-3 my-3">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-6">
+              <h6>{{item.name}}</h6>
+            </div>
+            <div class="col-6 text-end">
+              {{item.mobileNumber}}
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="info">{{item.email}} </p>
+          <p class="info">{{item.address}} </p>
+          <p class="info">{{item.city}} </p>
+          <p class="info">{{item.state}} </p>
+          <p class="info">{{item.pincode}} </p>
+
+
+        </div>
+        <div class="card-footer text-center d-flex justify-content-between">
+          <button class="btn btn-success" (click)="onEdit(item)">Edit</button>
+          <!-- <button class="btn btn-primary">Copy</button> -->
+          <button class="btn btn-danger" (click)="onDelete(item)">Delete</button>
+
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  } @else{
+  <div class="row">
+    <div class="col-12 p-4">
+      <p>No Records found. Create New Record. </p>
+    </div>
+  </div>
+  }
+
+
+</div>
+
+
+
+
+<!-- modal popup -->
+<div class="modal" tabindex="-1" id="myModal" #myModal>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create new student</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <label class="form-label" for="Name">Name</label>
+            <input type="text" class="form-control" placeholder="Name" [(ngModel)]="studentObj.name">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label class="form-label" for="Email">Email</label>
+            <input type="text" class="form-control" placeholder="Email" [(ngModel)]="studentObj.email">
+          </div>
+          <div class="col-6">
+            <label class="form-label" for="Mob No">Mob No</label>
+            <input type="text" class="form-control" placeholder="Mobile Number" [(ngModel)]="studentObj.mobileNumber">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <label class="form-label" for="City">City</label>
+            <input type="text" class="form-control" placeholder="City" [(ngModel)]="studentObj.city">
+          </div>
+          <div class="col-4">
+            <label class="form-label" for="State">State</label>
+            <input type="text" class="form-control" placeholder="State" [(ngModel)]="studentObj.state">
+          </div>
+          <div class="col-4">
+            <label class="form-label" for="Pincode">Pincode</label>
+            <input type="text" class="form-control" placeholder="Pincode" [(ngModel)]="studentObj.pincode">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label class="form-label" for="Address">Address</label>
+            <textarea rows="3" class="form-control" placeholder="Address" [(ngModel)]="studentObj.address"></textarea>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+        @if(studentObj.id == 0){
+        <button type="button" class="btn btn-primary" (click)="saveStudent()">Save Student</button>
+        } @else {
+        <button type="button" class="btn btn-success" (click)="updateStudent()">Update Student</button>
+        }
+      </div>
+    </div>
+  </div>
+</div>
